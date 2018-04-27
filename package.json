@@ -1,6 +1,6 @@
 {
-  "name": "@opuscapita/babel-plugin-transform-import-styles",
-  "version": "0.0.1",
+  "name": "babel-plugin-transform-import-styles",
+  "version": "0.0.2",
   "description": "Injects imported styles (css-modules) into js",
   "main": "index.js",
   "scripts": {
