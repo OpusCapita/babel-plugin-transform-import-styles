@@ -1,4 +1,4 @@
-Replaces `import './styles.css'` with a loader which injects styles to HTML head.
+Replaces `import './styles.css'` with a loader which injects styles to HTML head. 
 
 Currently works with `.css` files.
 
@@ -14,24 +14,6 @@ babel and postcss configs for best results
 npm i --save-dev babel-plugin-transform-import-styles
 npm i --save-dev load-styles # puts styles into the head
 ```
-
-**.babelrc** example:
-```json5
-{
-  "sourceMaps": "inline",
-  "presets": [
-    ["env", {
-      "targets": { "browsers": ["last 2 Chrome versions", "last 1 Safari version"] },
-      "useBuiltIns": false, "modules": false
-    }],
-    "stage-1", "react"
-  ],
-  "plugins": [
-    ["transform-import-styles"]
-  ]
-}
-```
-
 
 # Usage
 
@@ -50,6 +32,13 @@ will be roughly translated to:
 ```js
 require('load-styles')('.root{color:red}') // puts styles into the head
 ```
+
+Example command to build a library using only babel:
+
+```
+babel src -s -D -d lib --presets es2015,stage-0,react --plugins transform-import-styles --ignore less,css,SCOPE.react.js,DOCUMENTATION.md --source-maps false
+```
+It will recursively transpile `src` directory and put all `css` files directly to `js` files as descrived earlier. `--ignore` option is useful when you want to omit certain files in your production-ready build.
 
 # Use Cases
 
