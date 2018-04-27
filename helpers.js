@@ -10,10 +10,6 @@ const jsToAst = t.valueToNode;
 
 const jsStringToAst = (jsString) => babelTemplate(jsString)({});
 
-function jssPathname(cssPathname) {
-  return cssPathname.replace(/\.css$/, '.jss.js');
-}
-
 function constAst(idAst, valueAst) {
   return babelTemplate('const ID = VALUE')({ ID: idAst, VALUE: valueAst });
 }
@@ -39,7 +35,6 @@ module.exports = {
   jsToAst,
   jsStringToAst,
   babelTemplate,
-  jssPathname,
   constAst,
   postcss,
   retreiveOptions,

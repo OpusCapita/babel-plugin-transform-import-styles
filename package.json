@@ -18,9 +18,14 @@
     "url": "https://github.com/OpusCapita/babel-plugin-transform-import-styles.git",
     "web": "https://github.com/OpusCapita/babel-plugin-transform-import-styles"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "author": "Alex Mextner <invntrm@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "less": "3.0.2",
     "load-styles": "2.0.0",
     "postcss": "6.0.19",
     "postcss-icss-selectors": "2.0.3",

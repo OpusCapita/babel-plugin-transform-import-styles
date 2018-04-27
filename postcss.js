@@ -29,7 +29,7 @@ module.exports = {
 };
 
 function getPlugins(plugins, { generateScopedName } = {}) {
-  const extensions = ['.css'];
+  const extensions = ['.css', '.less'];
   const resolveOpts = {}, prepend = [], append = plugins || [], mode = undefined, hashPrefix = undefined;
   const scopedName = normalizeScopedName(generateScopedName, hashPrefix);
 
