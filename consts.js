@@ -1,5 +1,5 @@
 const defaultOptions = {
-  generateScopedName: '[name]__[local]___[hash:base64:5]',
+  generateScopedName: '[local]',
 };
 
 module.exports = {

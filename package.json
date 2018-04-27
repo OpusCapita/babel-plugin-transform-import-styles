@@ -1,5 +1,5 @@
 {
-  "name": "babel-plugin-transform-import-css",
+  "name": "@opuscapita/babel-plugin-transform-import-styles",
   "version": "0.1.6",
   "description": "Injects imported styles (css-modules) into js",
   "main": "index.js",
@@ -15,19 +15,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/a-x-/babel-plugin-transform-import-css.git",
-    "web": "https://github.com/a-x-/babel-plugin-transform-import-css"
+    "url": "https://github.com/OpusCapita/babel-plugin-transform-import-styles.git",
+    "web": "https://github.com/OpusCapita/babel-plugin-transform-import-styles"
   },
   "author": "Alex Mextner <invntrm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "load-styles": "^2.0.0",
-    "postcss": "^6.0.19",
-    "postcss-icss-selectors": "^2.0.3",
-    "postcss-modules-extract-imports": "^1.1.0",
-    "postcss-modules-resolve-imports": "^1.3.0",
-    "postcss-modules-scope": "^1.1.0",
-    "postcss-modules-values": "^1.3.0",
+    "load-styles": "2.0.0",
+    "postcss": "6.0.19",
+    "postcss-icss-selectors": "2.0.3",
+    "postcss-modules-extract-imports": "1.1.0",
+    "postcss-modules-resolve-imports": "1.3.0",
+    "postcss-modules-scope": "1.1.0",
+    "postcss-modules-values": "1.3.0",
     "require-resolve": "0.0.2"
   },
   "peerDependencies": {
@@ -37,14 +37,14 @@
     "babel": "6.x"
   },
   "devDependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-eslint": "^8.2.2",
-    "babel-generator": "^6.26.1",
-    "babel-template": "^6.26.0",
-    "babel-types": "^6.26.0",
-    "eslint-plugin-immutable": "^1.0.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-react": "^7.7.0"
+    "babel-cli": "6.9.0",
+    "babel-eslint": "8.2.2",
+    "babel-generator": "6.26.1",
+    "babel-template": "6.26.0",
+    "babel-types": "6.26.0",
+    "eslint-plugin-immutable": "1.0.0",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-react": "7.7.0"
   },
   "engines": {
     "node": ">=8.x"
