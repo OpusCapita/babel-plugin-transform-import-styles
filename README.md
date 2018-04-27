@@ -1,4 +1,6 @@
-Injects class map imported from css-modules into js.
+Replaces `import './styles.css'` with a loader which injects styles to HTML head.
+
+Currently works with `.css` files.
 
 Plugin respects webpack css-modules API and postcss config.
 
@@ -9,8 +11,8 @@ babel and postcss configs for best results
 
 # Installation & configuration
 ```sh
-npm add -SD babel-plugin-transform-import-css
-npm add load-styles # puts styles into the head
+npm i --save-dev babel-plugin-transform-import-styles
+npm i --save-dev load-styles # puts styles into the head
 ```
 
 **.babelrc** example:
@@ -25,9 +27,7 @@ npm add load-styles # puts styles into the head
     "stage-1", "react"
   ],
   "plugins": [
-    ["transform-import-css", {
-      "generateScopedName": "lib-[folder]-[name]-[local]-[hash:base64:4]"
-    }]
+    ["transform-import-styles"]
   ]
 }
 ```
@@ -37,7 +37,7 @@ npm add load-styles # puts styles into the head
 
 The following command will convert everything in the `src` folder to `lib` using babel and our plugin.
 
-    babel src/ -d lib/ --presets stage-0,env,react --plugins transform-import-css
+    babel src/ -d lib/ --presets stage-0,env,react --plugins transform-import-styles
 
 Every js file that has a statement such as:
 
@@ -48,20 +48,17 @@ import classes from './Component.css'
 will be roughly translated to:
 
 ```js
-var classes = {
-    root: 'lib-foo-root-SFs0',
-    // ...
-}
 require('load-styles')('.root{color:red}') // puts styles into the head
 ```
-
-# Api
-- `generateScopedName` *optional* css-modules scope template
 
 # Use Cases
 
 Bundling the css with js/react components.
 It is good for portability.
+
+# TODO
+
+Add support for `less` files.
 
 # Alternatives
 - [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules)
