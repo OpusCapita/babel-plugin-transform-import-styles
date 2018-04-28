@@ -1,3 +1,14 @@
 node_modules
 npm-debug.log
 examples-dist
+
+.*.swp
+.log
+yarn.lock
+package-lock.json
+*.log
+test-results.xml
+test-results/report.xml
+.idea
+.nyc_output
+coverage

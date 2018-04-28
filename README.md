@@ -1,13 +1,11 @@
-Replaces `import './styles.css'` with a loader which injects styles to HTML head. 
+Replaces `import './styles.css'` or `import './styles.less'` with a loader which injects styles to HTML head.
 
-Currently works with `.css` files.
+Currently works with `.css` and `.less` files (compiles `.less` to `.css` on the fly).
 
-Plugin respects webpack css-modules API and postcss config.
+Afterwards all styles are processed by [autoprefixer](https://github.com/postcss/autoprefixer).
 
 # Requirements
 babel == 6, node >= 8
-
-babel and postcss configs for best results
 
 # Installation & configuration
 ```sh
@@ -38,16 +36,12 @@ Example command to build a library using only babel:
 ```
 babel src -s -D -d lib --presets es2015,stage-0,react --plugins transform-import-styles --ignore less,css,SCOPE.react.js,DOCUMENTATION.md --source-maps false
 ```
-It will recursively transpile `src` directory and put all `css` files directly to `js` files as descrived earlier. `--ignore` option is useful when you want to omit certain files in your production-ready build.
+It will recursively transpile `src` directory and put all `.css` and `.less` files directly to `.js` files as descrived earlier. `--ignore` option is useful when you want to omit certain files in your production-ready build.
 
 # Use Cases
 
 Bundling the css with js/react components.
 It is good for portability.
-
-# TODO
-
-Add support for `less` files.
 
 # Alternatives
 - [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules)
