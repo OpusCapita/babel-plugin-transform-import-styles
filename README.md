@@ -33,7 +33,7 @@ will be roughly translated to:
 
 ```js
 require('load-styles')(
-`/* myCoolButtons: Component.css */\n
+`/* myCoolButtons */\n
 .root{color:red}`
 ) // puts styles into the head
 ```
@@ -42,7 +42,7 @@ String `myCoolButtons` is taken from `package.json` -> `name` of current project
 In browser's HTML head there will be the following block:
 ```html
 <style>
-/* myCoolButtons: Component.css */
+/* myCoolButtons */
 .root{color:red}
 </style>
 ```
