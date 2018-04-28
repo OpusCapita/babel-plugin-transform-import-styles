@@ -1,7 +1,6 @@
 const { readFileSync } = require('fs');
-const path = require('path');
+const { resolve, join } = require('path');
 const requireResolve = require('require-resolve');
-const postcss = require('postcss');
 
 function errorBoundary(cssFile, cb) {
   try {
@@ -22,9 +21,7 @@ function CssImport(cb) {
     errorBoundary(node.source.value, () => {
       if (!node.source.value.endsWith('.css') && !node.source.value.endsWith('.less')) return;
 
-      const { src } = requireResolve(node.source.value, path.resolve(file.opts.filename));
-
-      console.log({ src })
+      const { src } = requireResolve(node.source.value, resolve(file.opts.filename));
 
       let css;
 
@@ -32,7 +29,7 @@ function CssImport(cb) {
         // unfortunately babel is completely sync
         // we need to block while we compile .less
         css = require('child_process').execSync(
-          `node ${path.join(__dirname, 'compile-less.js')} ${src}`,
+          `node ${join(__dirname, 'compile-less.js')} ${src}`,
           {
             cwd: __dirname,
             encoding: 'utf8'

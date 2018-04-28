@@ -1,5 +1,3 @@
-const path = require('path');
-const fs = require('fs');
 const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 
