@@ -17,6 +17,6 @@ html {
   width: 100%;
 }
 
-::placeholder {
+input::placeholder {
   color: gray;
 }
