@@ -7,9 +7,11 @@ function printWarnings(lazyResult) {
   lazyResult.warnings().forEach(message => console.warn(message.text));
 }
 
+const browsers = ["last 2 versions", "ie >= 11", "safari >= 7", "Firefox ESR"];
+
 module.exports = {
   process (css, src) {
-    const runner = postcss([autoprefixer]);
+    const runner = postcss([autoprefixer({ browsers })]);
     const lazyResult = runner.process(css, { map: false, from: src });
     printWarnings(lazyResult);
     return { code: lazyResult.css };
