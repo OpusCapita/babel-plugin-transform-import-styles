@@ -6,8 +6,8 @@ const babelTemplate = require('babel-template');
 const CssImport = require('./css-import-visitor');
 const postcss = require('./postcss');
 
+// read package name from package.json for annotation comments in <style> blocks
 const cwd = process.cwd();
-console.log({ cwd })
 let packageName;
 const packageFile = join(cwd, 'package.json');
 if (fs.existsSync(packageFile)) {
