@@ -19,9 +19,17 @@ function CssImport(cb) {
   return (babelData, { file, opts = {} }) => {
     const { node } = babelData;
     errorBoundary(node.source.value, () => {
-      if (!node.source.value.endsWith('.css') && !node.source.value.endsWith('.less')) return;
+      if (!node.source.value.endsWith('.css') && !node.source.value.endsWith('.less')) {
+        return
+      };
 
-      const { src } = requireResolve(node.source.value, resolve(file.opts.filename));
+      const fileData = requireResolve(node.source.value, resolve(file.opts.filename));
+
+      if (!fileData) {
+        throw new Error(`Cannot resolve "${node.source.value}" in ${file.opts.filename}`);
+      }
+
+      const { src } = fileData;
 
       let css;
 
