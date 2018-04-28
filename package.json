@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-import-styles",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Injects imported styles (.css or .less) into js",
   "main": "src/index.js",
   "scripts": {
