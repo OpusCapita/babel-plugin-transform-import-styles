@@ -1,3 +1,3 @@
-// import css from './example1.css'
-
 import './example-less.less'
+
+import './example1.css'

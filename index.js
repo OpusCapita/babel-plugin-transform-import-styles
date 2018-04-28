@@ -8,7 +8,7 @@ const t = require('babel-types');
 
 const CssImport = require('./css-import-visitor');
 const {
-  jsToAst, jsStringToAst, constAst, postcss,
+  jsStringToAst, constAst, postcss
 } = require('./helpers');
 
 /* main() { */
@@ -33,14 +33,10 @@ module.exports = function(/*babel*/) {
     visitor: {
       ImportDeclaration: {
         exit: CssImport(({ src, css, options, importNode, babelData }) => {
-          // console.log({ src, css, options, importNode, babelData })
-
           const postcssOptions = { generateScopedName: options.generateScopedName };
-          const { code, classesMap } = postcss.process(css, src, postcssOptions);
+          const { code } = postcss.process(css, src, postcssOptions);
 
-          babelData.replaceWith(
-            putStyleIntoHeadAst({ code }),
-          );
+          babelData.replaceWith(putStyleIntoHeadAst({ code }));
         }),
       },
     },

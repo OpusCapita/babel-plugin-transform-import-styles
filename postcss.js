@@ -22,9 +22,7 @@ module.exports = {
 
     printWarnings(lazyResult);
 
-    const classesMap = lazyResult.root.exports || {};
-
-    return { code: lazyResult.css, classesMap };
+    return { code: lazyResult.css };
   },
 };
 

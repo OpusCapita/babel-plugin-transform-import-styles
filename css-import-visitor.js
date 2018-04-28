@@ -20,29 +20,29 @@ function CssImport(cb) {
 
       let css = content;
 
+      if (node.source.value.endsWith('.less')) {
+        // unfortunately babel is completely sync
+        // we need to block while we compile .less
+        css = require('child_process').execSync(
+          `node compile-less.js`,
+          {
+            cwd: __dirname,
+            input: content,
+            encoding: 'utf8'
+          }
+        )
+      }
+
       // TODO: load postcss options and plugins
       const options = { ...defaultOptions, ...opts };
 
-      const params = {
+      cb({
         babelData,
         src,
         importNode: { ...node, ...node.specifiers[0] },
         options,
         css
-      }
-
-      if (node.source.value.endsWith('.less')) {
-        console.log('Trying less')
-        less.render(content).
-          then(result => {
-            cb({
-              ...params,
-              css: result
-            });
-          })
-      } else {
-        cb(params);
-      }
+      });
     });
   };
 }
@@ -54,7 +54,7 @@ function errorBoundary(cssFile, cb) {
     cb();
   } catch (e) {
     debugger; // eslint-disable-line no-debugger
-    console.error(new Error(`import-css-to-jss-calls: ${ cssFile }: ${ e.message }`));
+    console.error(new Error(`babel-plugin-transform-import-styles: ${ cssFile }: ${ e.message }`));
     throw e;
   }
 }
