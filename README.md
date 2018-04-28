@@ -24,11 +24,27 @@ Every js file that has a statement such as:
 ```js
 import classes from './Component.css'
 ```
+where `Component.css` is
+```css
+.root{color:red}
+```
 
 will be roughly translated to:
 
 ```js
-require('load-styles')('.root{color:red}') // puts styles into the head
+require('load-styles')(
+`/* myCoolButtons: Component.css */\n
+.root{color:red}`
+) // puts styles into the head
+```
+String `myCoolButtons` is taken from `package.json` -> `name` of current project.
+
+In browser's HTML head there will be the following block:
+```html
+<style>
+/* myCoolButtons: Component.css */
+.root{color:red}
+</style>
 ```
 
 Example command to build a library using only babel:
