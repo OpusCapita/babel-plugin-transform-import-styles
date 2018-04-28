@@ -21,7 +21,7 @@ function CssImport(cb) {
     errorBoundary(node.source.value, () => {
       if (!node.source.value.endsWith('.css') && !node.source.value.endsWith('.less')) {
         return
-      };
+      }
 
       const fileData = requireResolve(node.source.value, resolve(file.opts.filename));
 

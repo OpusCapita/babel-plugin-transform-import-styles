@@ -1,5 +1,6 @@
 // node >= 8
 // babel == 6 plugin
+const { basename } = require('path');
 const babelTemplate = require('babel-template');
 const CssImport = require('./css-import-visitor');
 const postcss = require('./postcss');
@@ -10,9 +11,12 @@ const putStyleIntoHeadAst = ({ code }) => {
   return jsStringToAst(`require('load-styles')(\`${ code }\`)`);
 }
 
-module.exports = function(/*babel*/) {
+// eslint-disable-next-line max-len
+const addScopeComment = ({ code, libraryName, fileName }) => `/* ${libraryName} / ${fileName} */\n${code}`;
+
+module.exports = function(/* babel*/) {
   const pluginApi = {
-    manipulateOptions (options) {
+    manipulateOptions(options) {
       return options;
     },
 
@@ -20,13 +24,18 @@ module.exports = function(/*babel*/) {
       ImportDeclaration: {
         exit: CssImport(({ src, css, options, importNode, babelData }) => {
           const { code } = postcss.process(css, src);
-          babelData.replaceWith(putStyleIntoHeadAst({ code }));
+          const { libraryName } = options;
+          const fileName = basename(src);
+
+          babelData.replaceWith(putStyleIntoHeadAst({
+            code: libraryName ?
+              addScopeComment({ code, libraryName, fileName }) :
+              code
+          }));
         }),
       },
     },
   };
   return pluginApi;
 };
-
-
 
