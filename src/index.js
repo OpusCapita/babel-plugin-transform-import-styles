@@ -1,9 +1,18 @@
 // node >= 8
 // babel == 6 plugin
-const { basename } = require('path');
+const { basename, join } = require('path');
+const fs = require('fs');
 const babelTemplate = require('babel-template');
 const CssImport = require('./css-import-visitor');
 const postcss = require('./postcss');
+
+const cwd = process.cwd();
+console.log({ cwd })
+let packageName;
+const packageFile = join(cwd, 'package.json');
+if (fs.existsSync(packageFile)) {
+  packageName = require(packageFile).name;
+}
 
 const jsStringToAst = jsString => babelTemplate(jsString)({});
 
@@ -12,7 +21,7 @@ const putStyleIntoHeadAst = ({ code }) => {
 }
 
 // eslint-disable-next-line max-len
-const addScopeComment = ({ code, libraryName, fileName }) => `/* ${libraryName} / ${fileName} */\n${code}`;
+const addScopeComment = ({ code, packageName, fileName }) => `/* ${packageName} / ${fileName} */\n${code}`;
 
 module.exports = function(/* babel*/) {
   const pluginApi = {
@@ -24,12 +33,9 @@ module.exports = function(/* babel*/) {
       ImportDeclaration: {
         exit: CssImport(({ src, css, options, importNode, babelData }) => {
           const { code } = postcss.process(css, src);
-          const { libraryName } = options;
-          const fileName = basename(src);
-
           babelData.replaceWith(putStyleIntoHeadAst({
-            code: libraryName ?
-              addScopeComment({ code, libraryName, fileName }) :
+            code: packageName ?
+              addScopeComment({ code, packageName, fileName: basename(src) }) :
               code
           }));
         }),
