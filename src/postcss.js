@@ -2,7 +2,9 @@ const postcss = require('postcss');
 const autoprefixer = require('autoprefixer');
 
 function printWarnings(lazyResult) {
-  if (lazyResult.error) {console.error(lazyResult.error);}
+  if (lazyResult.error) {
+    console.error(lazyResult.error)
+  }
   // https://github.com/postcss/postcss/blob/master/docs/api.md#lazywarnings
   lazyResult.warnings().forEach(message => console.warn(message.text));
 }
