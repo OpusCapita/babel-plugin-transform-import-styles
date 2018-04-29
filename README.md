@@ -5,7 +5,7 @@ Currently works with `.css` and `.less` files (compiles `.less` to `.css` on the
 Afterwards all styles are processed by [autoprefixer](https://github.com/postcss/autoprefixer).
 
 # Requirements
-babel == 6, node >= 8
+babel 6, node >= 8
 
 # Installation & configuration
 ```sh
@@ -22,7 +22,7 @@ The following command will convert everything in the `src` folder to `lib` using
 Every js file that has a statement such as:
 
 ```js
-import classes from './Component.css'
+import './Component.css'
 ```
 where `Component.css` is
 ```css
