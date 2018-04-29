@@ -5,17 +5,16 @@ const requireResolve = require('require-resolve');
 function errorBoundary(cssFile, cb) {
   try {
     cb();
-  } catch (e) {
-    // debugger; // eslint-disable-line no-debugger
-    console.error(new Error(`babel-plugin-transform-import-styles: ${ cssFile }: ${ e.message }`));
-    throw e;
+  } catch (err) {
+    console.error(new Error(`babel-plugin-transform-import-styles: ${ cssFile }: ${ err.message }`));
+    throw err;
   }
 }
 
 /**
- * Visitor for `import '*.css'` babel AST-nodes
+ * Visitor for `import '*.css|less'` babel AST-nodes
  */
-function CssImport(cb) {
+module.exports = function cssImport(cb) {
   return (babelData, { file, opts = {} }) => {
     const { node } = babelData;
     errorBoundary(node.source.value, () => {
@@ -24,8 +23,8 @@ function CssImport(cb) {
       }
 
       const fileData = requireResolve(node.source.value, resolve(file.opts.filename));
-
       if (!fileData) {
+        // if file doesn't exist than requireResolve returns null
         throw new Error(`Cannot resolve "${node.source.value}" in ${file.opts.filename}`);
       }
 
@@ -36,30 +35,12 @@ function CssImport(cb) {
       if (node.source.value.endsWith('.less')) {
         // unfortunately babel is completely sync
         // we need to block while we compile .less
-        css = require('child_process').execSync(
-          `node ${join(__dirname, 'compile-less.js')} ${src}`,
-          {
-            cwd: __dirname,
-            encoding: 'utf8'
-          }
-        )
+        css = require('child_process').execSync(`node ${join(__dirname, 'compile-less.js')} ${src}`);
       } else {
         css = readFileSync(src, 'utf8');
       }
 
-      // TODO: load postcss options and plugins
-      const options = { generateScopedName: '[local]', ...opts };
-
-      cb({
-        babelData,
-        src,
-        importNode: { ...node, ...node.specifiers[0] },
-        options,
-        css
-      });
+      cb({ babelData, src, css });
     });
   };
 }
-
-module.exports = CssImport;
-
