@@ -59,6 +59,10 @@ It will recursively transpile `src` directory and put all `.css` and `.less` fil
 Bundling the css with js/react components.
 It is good for portability.
 
+# TODO
+
+Support non-relative paths like `import 'some-npm-package/whatever/path/style-name.css'`.
+
 # Alternatives
 - [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules)
   - adds custom syntax
