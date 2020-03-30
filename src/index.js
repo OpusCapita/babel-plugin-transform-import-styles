@@ -29,10 +29,11 @@ module.exports = function() {
       ImportDeclaration: {
         exit: cssImport(({ src, css, babelData }) => {
           const { code } = postcss.process(css, src);
+          const escapedCode=code.replace(/\\/g, '\\\\');
           babelData.replaceWith(putStyleIntoHeadAst({
             code: packageName ?
-              `/* ${packageName} */\n${code}` :
-              code
+                `/* ${packageName} */\n${escapedCode}` :
+                escapedCode
           }));
         }),
       },
